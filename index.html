@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life in Armenia - Édition Française</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #fefefe;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: #2c3e50;
+            line-height: 1.2;
+        }
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #555;
+        }
+        a {
+            color: #d62828;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #003049;
+        }
+        section {
+            padding: 5rem 2rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #d62828;
+            color: white;
+            padding: 16px 38px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(214, 40, 40, 0.2);
+            font-family: 'Inter', sans-serif;
+        }
+        .btn:hover {
+            background-color: #003049;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 48, 73, 0.25);
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3.5rem;
+            position: relative;
+        }
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #d62828;
+            margin: 15px auto 0;
+        }
+
+        /* Header & Hero */
+        header {
+            text-align: center;
+            padding: 4rem 1rem 1rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            margin-bottom: 0.5rem;
+            color: #003049;
+            letter-spacing: -0.5px;
+        }
+        .tagline {
+            font-size: 1.4rem;
+            color: #666;
+            font-weight: 300;
+            font-style: italic;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero {
+            text-align: center;
+            padding: 2rem 1rem 5rem;
+        }
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1.8rem;
+            color: #003049;
+        }
+        .hero p {
+            font-size: 1.4rem;
+            color: #555;
+            max-width: 780px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+        .cover-mockup {
+            width: 100%;
+            max-width: 420px;
+            margin: 4rem auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            background-color: #f5f5f5;
+            height: 560px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-style: italic;
+            border: 2px dashed #ccc;
+            transition: transform 0.5s ease;
+        }
+        .cover-mockup:hover {
+            transform: scale(1.02);
+        }
+
+        /* Email Capture */
+        #signup {
+            background-color: #f8f9fa;
+            border-radius: 0;
+            background-image: linear-gradient(to right, #f8f9fa 0%, #f1f3f5 100%);
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        #emailForm {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-top: 2.5rem;
+        }
+        .form-input {
+            padding: 20px 28px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #d62828;
+            box-shadow: 0 0 0 3px rgba(214, 40, 40, 0.1);
+        }
+        .message {
+            margin-top: 1.5rem;
+            padding: 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Emotional Pillars */
+        .pillars-section {
+            background-color: white;
+        }
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 1rem;
+        }
+        .pillar-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            border: 1px solid #f0f0f0;
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .pillar-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #e0e0e0;
+        }
+        .pillar-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.8rem;
+            display: block;
+            color: #d62828;
+        }
+        .pillar-card h3 {
+            color: #003049;
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            min-height: 4.4rem;
+        }
+        .pillar-card p {
+            flex-grow: 1;
+            color: #666;
+            font-size: 1.05rem;
+        }
+
+        /* Sample Content */
+        .sample-section {
+            background-color: #fef8f5;
+            text-align: center;
+        }
+        .sample-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+        .sample-subtitle {
+            font-size: 1.3rem;
+            color: #d62828;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+        .sample-description {
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.15rem;
+        }
+        .sample-btn {
+            background-color: #003049;
+        }
+        .sample-btn:hover {
+            background-color: #d62828;
+        }
+
+        /* Partnerships */
+        .partnerships {
+            background-color: #003049;
+            color: white;
+            text-align: center;
+        }
+        .partnerships h2, .partnerships p {
+            color: white;
+        }
+        .partnerships .section-title:after {
+            background: #d62828;
+        }
+        .partnerships .btn {
+            background-color: white;
+            color: #003049;
+            margin-top: 1.8rem;
+        }
+        .partnerships .btn:hover {
+            background-color: #d62828;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 1rem;
+            color: #777;
+            font-size: 0.95rem;
+            background-color: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        .footer-links {
+            margin-bottom: 2rem;
+        }
+        .footer-links a {
+            color: #555;
+            margin: 0 18px;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #d62828;
+        }
+        .footer-note {
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-style: italic;
+            color: #888;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .logo { font-size: 2.5rem; }
+            .tagline { font-size: 1.2rem; }
+            .pillars-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .section-title { font-size: 2.2rem; }
+            .pillar-card { padding: 2rem; }
+            .pillar-card h3 { font-size: 1.6rem; min-height: auto; }
+            .pillar-icon { font-size: 3rem; }
+            #emailForm { flex-direction: column; }
+            .form-input, .btn { width: 100%; }
+            section { padding: 4rem 1.5rem; }
+            .cover-mockup {
+                max-width: 320px;
+                height: 440px;
+                margin: 3rem auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Hero -->
+    <header>
+        <div class="container">
+            <div class="logo">Life in Armenia</div>
+            <div class="tagline">Édition Française • Découvrez l'âme de l'Arménie</div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Laissez-vous émouvoir par l'Arménie</h1>
+            <p>Bien plus qu'une destination, une émotion. Un premier regard sur un pays où l'histoire se boit dans le vin le plus ancien, où le pain est une prière, et où les montagnes murmurent des légendes. <strong>Une invitation sensorielle et culturelle, créée spécialement pour le cœur français.</strong></p>
+            
+            <!-- COVER MOCKUP: REPLACE WITH IMAGE -->
+            <img src="cover.png" alt="Couverture Life in Armenia Édition Française" class="cover-mockup" style="width:100%; height:100%; object-fit:cover;">
+            
+            <a href="#signup" class="btn">Répondez à l'invitation</a>
+        </div>
+    </section>
+
+    <!-- Email Capture -->
+    <section id="signup">
+        <div class="container form-container">
+            <h2 class="section-title">Soyez des premiers témoins</h2>
+            <p>Inscrivez-vous pour recevoir en avant-première notre premier numéro, une immersion totale dans les saveurs, les paysages et l'âme de l'Arménie.</p>
+            <form id="emailForm">
+                <input type="email" id="emailInput" class="form-input" placeholder="Votre adresse email" required>
+                <button type="submit" class="btn">Je m'inscris à la découverte</button>
+            </form>
+            <div id="formMessage" class="message"></div>
+            <p style="margin-top: 1.5rem; font-size:0.9rem; color:#777;">Votre curiosité est précieuse. Pas de spam, juste de la beauté.</p>
+        </div>
+    </section>
+
+    <!-- Emotional Pillars -->
+    <section class="pillars-section">
+        <div class="container">
+            <h2 class="section-title">Notre promesse : Vous faire ressentir l'Arménie</h2>
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <span class="pillar-icon">🍷</span>
+                    <h3>Une Histoire à Savourer</h3>
+                    <p>Partez sur la trace des premiers vignerons du monde dans la grotte d'Areni. Découvrez le <em>lavash</em>, ce pain ancestral inscrit à l'UNESCO, et la symbolique profonde de la grenade. Une aventure culinaire où chaque plat raconte un chapitre de l'humanité.</p>
+                </div>
+                <div class="pillar-card">
+                    <span class="pillar-icon">⛰️</span>
+                    <h3>Des Paysages qui Élèvent l'Âme</h3>
+                    <p>Contemplez le mont Ararat, gardien silencieux de la nation. Explorez les monastères millénaires de Geghard, sculptés à même la roche, et laissez-vous apaiser par les eaux sereines du lac Sevan. Des lieux où le temps s'arrête et la beauté prend son souffle.</p>
+                </div>
+                <div class="pillar-card">
+                    <span class="pillar-icon">🎶</span>
+                    <h3>L'Art de la Rencontre</h3>
+                    <p>Laissez le son mélancolique du <em>duduk</em>, patrimoine immatériel de l'UNESCO, vous toucher. Décryptez l'alphabet arménien, chef-d'œuvre linguistique. Plongez dans une culture de l'accueil et de la résilience, où l'hospitalité est un art de vivre.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sample Content -->
+    <section class="sample-section">
+        <div class="container">
+            <h2 class="sample-title">Un avant-goût de cette émotion ?</h2>
+            <div class="sample-subtitle">Extrait exclusif de notre premier numéro</div>
+            <p class="sample-description">
+                <strong>"La Grotte d'Areni : Le premier verre de l'humanité"</strong><br>
+                Suivez-nous dans les entrailles de la terre, là où, il y a six mille ans, le premier vin fut produit. Une expérience sensorielle et historique qui lie la France et l'Arménie à travers leur amour commun du terroir et de la tradition.
+            </p>
+            <a href="#" class="btn sample-btn">Lire l'extrait gratuitement</a>
+            <!-- REPLACE '#' WITH ACTUAL URL TO SAMPLE ARTICLE -->
+        </div>
+    </section>
+
+    <!-- Partnerships -->
+    <section class="partnerships">
+        <div class="container">
+            <h2 class="section-title">Vous faites vivre la culture ?</h2>
+            <p>Associations, médias, amoureux du patrimoine : si cette vision de l'Arménie résonne avec votre audience, parlons-en. Collaborons pour faire connaître ces trésors.</p>
+            <a href="mailto:contact@lifeinarmenia.com?subject=Collaboration%20Édition%20Française" class="btn">Créons un pont culturel</a>
+            <!-- UPDATE EMAIL ADDRESS -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://lifeinarmenia.com" target="_blank">Le magazine original (EN)</a>
+                <a href="#signup">S'inscrire</a>
+                <a href="mailto:contact@lifeinarmenia.com">Contact</a>
+            </div>
+            <p class="footer-note">
+                © 2025 Life in Armenia Magazine. Édition Française.<br>
+                Une publication née de la passion pour l'Arménie et du désir de la partager avec l'âme française.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Form Submission with Fake Validation
+        document.getElementById('emailForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const emailInput = document.getElementById('emailInput');
+            const formMessage = document.getElementById('formMessage');
+            const email = emailInput.value.trim();
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                showMessage('Veuillez entrer une adresse email valide pour recevoir notre invitation.', 'error');
+                return;
+            }
+
+            // SIMULATE SUCCESS (REPLACE WITH REAL BACKEND)
+            showMessage(`Merci. Votre curiosité pour l'Arménie nous touche. Votre invitation est envoyée à ${email}.`, 'success');
+            emailInput.value = '';
+
+            // REAL IMPLEMENTATION EXAMPLE:
+            /*
+            fetch('YOUR_BACKEND_ENDPOINT', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, language: 'fr' })
+            })
+            .then(response => response.json())
+            .then(data => showMessage('Inscription réussie !', 'success'))
+            .catch(error => showMessage('Une erreur est survenue.', 'error'));
+            */
+        });
+
+        function showMessage(text, type) {
+            const formMessage = document.getElementById('formMessage');
+            formMessage.textContent = text;
+            formMessage.className = 'message ' + type;
+            formMessage.style.display = 'block';
+
+            setTimeout(() => {
+                formMessage.style.display = 'none';
+            }, 8000);
+        }
+
+        // Smooth scroll for anchor link
+        document.querySelector('a[href="#signup"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#signup').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
