@@ -70,6 +70,11 @@
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(0, 48, 73, 0.25);
         }
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
         .section-title {
             text-align: center;
             font-size: 2.5rem;
@@ -138,11 +143,16 @@
             justify-content: center;
             color: #999;
             font-style: italic;
-            border: 2px dashed #ccc;
+            border: none; /* Bordure retirée */
             transition: transform 0.5s ease;
         }
         .cover-mockup:hover {
             transform: scale(1.02);
+        }
+        .cover-mockup img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* Email Capture */
@@ -354,22 +364,32 @@
             <h1>Laissez-vous émouvoir par l'Arménie</h1>
             <p>Bien plus qu'une destination, une émotion. Un premier regard sur un pays où l'histoire se boit dans le vin le plus ancien, où le pain est une prière, et où les montagnes murmurent des légendes. <strong>Une invitation sensorielle et culturelle, créée spécialement pour le cœur français.</strong></p>
             
-            <!-- COVER MOCKUP: REPLACE WITH IMAGE -->
-            <img src="LIA_Cover.png" alt="Couverture Life in Armenia Édition Française" class="cover-mockup" style="width:100%; height:100%; object-fit:cover;">
+            <!-- Image de couverture -->
+            <div class="cover-mockup">
+                <img src="LIA_Cover.png" alt="Couverture Life in Armenia Édition Française">
+            </div>
             
             <a href="#signup" class="btn">Répondez à l'invitation</a>
         </div>
     </section>
 
-    <!-- Email Capture -->
+    <!-- Email Capture avec Formspree -->
     <section id="signup">
         <div class="container form-container">
             <h2 class="section-title">Soyez des premiers témoins</h2>
             <p>Inscrivez-vous pour recevoir en avant-première notre premier numéro, une immersion totale dans les saveurs, les paysages et l'âme de l'Arménie.</p>
-            <form id="emailForm">
-                <input type="email" id="emailInput" class="form-input" placeholder="Votre adresse email" required>
+            
+            <!-- REMPLACER L'URL FORMSFREE CI-DESSOUS -->
+            <form id="emailForm" action="https://formspree.io/f/mqeavozq" method="POST">
+                <input type="email" name="email" id="emailInput" class="form-input" placeholder="Votre adresse email" required>
+                <!-- Champs cachés pour Formspree -->
+                <input type="hidden" name="_subject" value="Nouvel inscrit - Édition Française Life in Armenia">
+                <input type="hidden" name="_language" value="fr">
+                <input type="hidden" name="_gotcha" style="display:none">
+                
                 <button type="submit" class="btn">Je m'inscris à la découverte</button>
             </form>
+            
             <div id="formMessage" class="message"></div>
             <p style="margin-top: 1.5rem; font-size:0.9rem; color:#777;">Votre curiosité est précieuse. Pas de spam, juste de la beauté.</p>
         </div>
@@ -408,8 +428,8 @@
                 <strong>"La Grotte d'Areni : Le premier verre de l'humanité"</strong><br>
                 Suivez-nous dans les entrailles de la terre, là où, il y a six mille ans, le premier vin fut produit. Une expérience sensorielle et historique qui lie la France et l'Arménie à travers leur amour commun du terroir et de la tradition.
             </p>
-            <a href="#" class="btn sample-btn">Lire l'extrait gratuitement</a>
-            <!-- REPLACE '#' WITH ACTUAL URL TO SAMPLE ARTICLE -->
+            <!-- REMPLACER LE LIEN CI-DESSOUS -->
+            <a href="https://lifeinarmenia.com/sample-article-fr" class="btn sample-btn" target="_blank">Lire l'extrait gratuitement</a>
         </div>
     </section>
 
@@ -418,8 +438,8 @@
         <div class="container">
             <h2 class="section-title">Vous faites vivre la culture ?</h2>
             <p>Associations, médias, amoureux du patrimoine : si cette vision de l'Arménie résonne avec votre audience, parlons-en. Collaborons pour faire connaître ces trésors.</p>
-            <a href="mailto:contact@lifeinarmenia.com?subject=Collaboration%20Édition%20Française" class="btn">Créons un pont culturel</a>
-            <!-- UPDATE EMAIL ADDRESS -->
+            <!-- REMPLACER L'EMAIL CI-DESSOUS -->
+            <a href="mailto:matthew@lifeinarmenia.com?subject=Collaboration%20Édition%20Française" class="btn">Créons un pont culturel</a>
         </div>
     </section>
 
@@ -427,6 +447,7 @@
     <footer>
         <div class="container">
             <div class="footer-links">
+                <!-- VERIFIER CES LIENS -->
                 <a href="https://lifeinarmenia.com" target="_blank">Le magazine original (EN)</a>
                 <a href="#signup">S'inscrire</a>
                 <a href="mailto:contact@lifeinarmenia.com">Contact</a>
@@ -439,35 +460,55 @@
     </footer>
 
     <script>
-        // Form Submission with Fake Validation
-        document.getElementById('emailForm').addEventListener('submit', function(event) {
+        // Form Submission avec Formspree
+        document.getElementById('emailForm').addEventListener('submit', async function(event) {
             event.preventDefault();
-
-            const emailInput = document.getElementById('emailInput');
+            
+            const form = this;
             const formMessage = document.getElementById('formMessage');
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            
+            // Validation basique de l'email
+            const emailInput = document.getElementById('emailInput');
             const email = emailInput.value.trim();
-
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
             if (!emailPattern.test(email)) {
                 showMessage('Veuillez entrer une adresse email valide pour recevoir notre invitation.', 'error');
                 return;
             }
-
-            // SIMULATE SUCCESS (REPLACE WITH REAL BACKEND)
-            showMessage(`Merci. Votre curiosité pour l'Arménie nous touche. Votre invitation est envoyée à ${email}.`, 'success');
-            emailInput.value = '';
-
-            // REAL IMPLEMENTATION EXAMPLE:
-            /*
-            fetch('YOUR_BACKEND_ENDPOINT', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email, language: 'fr' })
-            })
-            .then(response => response.json())
-            .then(data => showMessage('Inscription réussie !', 'success'))
-            .catch(error => showMessage('Une erreur est survenue.', 'error'));
-            */
+            
+            // Désactive le bouton pendant l'envoi
+            submitButton.disabled = true;
+            submitButton.textContent = 'Inscription en cours...';
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                if (response.ok) {
+                    // Succès
+                    showMessage(`Merci ! Votre curiosité pour l'Arménie nous touche. Confirmation envoyée à ${email}.`, 'success');
+                    form.reset(); // Vide le formulaire
+                } else {
+                    // Erreur du serveur
+                    const errorData = await response.json();
+                    showMessage('Désolé, une erreur est survenue. Veuillez réessayer.', 'error');
+                    console.error('Formspree error:', errorData);
+                }
+            } catch (error) {
+                // Erreur réseau
+                showMessage('Problème de connexion. Veuillez vérifier votre réseau.', 'error');
+                console.error('Network error:', error);
+            } finally {
+                // Réactive le bouton
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            }
         });
 
         function showMessage(text, type) {
@@ -476,12 +517,13 @@
             formMessage.className = 'message ' + type;
             formMessage.style.display = 'block';
 
+            // Cache le message après 8 secondes
             setTimeout(() => {
                 formMessage.style.display = 'none';
             }, 8000);
         }
 
-        // Smooth scroll for anchor link
+        // Smooth scroll pour le lien d'ancrage
         document.querySelector('a[href="#signup"]').addEventListener('click', function(e) {
             e.preventDefault();
             document.querySelector('#signup').scrollIntoView({ behavior: 'smooth' });
